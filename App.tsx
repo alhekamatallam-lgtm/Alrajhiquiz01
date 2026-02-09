@@ -57,23 +57,28 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50 text-gray-900 overflow-x-hidden">
-      <header className="fixed top-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md z-50 flex justify-between items-center shadow-sm">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#001a35] text-white overflow-x-hidden">
+      <header className="fixed top-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-xl z-50 flex justify-between items-center border-b border-gray-100 shadow-md">
         <img src={RAJHI_LOGO} alt="Rajhi Humanitarian" className="h-10 md:h-14 object-contain" />
-        <div className="text-rajhi-blue font-bold text-sm md:text-base text-left">
+        <div className="text-[#001a35] font-bold text-sm md:text-base text-left">
           اللقاء الاجتماعي الأول 2026
         </div>
       </header>
 
-      <main className="w-full max-w-2xl mt-20 mb-10 flex flex-col items-center justify-center animate-fade-in">
+      <main className="w-full max-w-2xl mt-24 mb-24 flex flex-col items-center justify-center animate-fade-in relative z-10">
         {appState === AppState.WELCOME && <Welcome onStart={handleStart} onViewLeaderboard={showLeaderboard} />}
         {appState === AppState.QUIZ && <Quiz questions={QUESTIONS} onFinish={handleFinish} />}
         {appState === AppState.RESULTS && <Results stats={userStats} onRestart={handleRestart} onViewLeaderboard={showLeaderboard} />}
         {appState === AppState.LEADERBOARD && <Leaderboard onBack={handleRestart} />}
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 p-2 bg-white text-center text-[10px] text-gray-400">
-        © 2026 مؤسسة الراجحي الإنسانية - محور الأثر والحوكمة
+      <footer className="fixed bottom-0 left-0 right-0 p-4 bg-[#001a35]/95 backdrop-blur-md text-center border-t border-white/5 flex flex-col gap-1">
+        <div className="text-[10px] text-gray-400 font-medium">
+          © 2026 مؤسسة الراجحي الإنسانية - محور الأثر والحوكمة
+        </div>
+        <div className="text-[11px] font-bold tracking-wide">
+          <span className="text-gray-500">Powerd By</span> <span className="text-rajhi-gold">Abdelaziz Frhat</span>
+        </div>
       </footer>
 
       <style>{`

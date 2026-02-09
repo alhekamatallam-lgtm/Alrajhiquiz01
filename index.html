@@ -12,18 +12,21 @@
     <style>
       :root {
         --rajhi-blue: #004a99;
+        --rajhi-navy: #001a35;
         --rajhi-gold: #c5a059;
       }
       body {
         font-family: 'Tajawal', sans-serif;
-        background-color: #f0f4f8;
+        background-color: var(--rajhi-navy);
         overscroll-behavior-y: contain;
         -webkit-tap-highlight-color: transparent;
         margin: 0;
         padding: 0;
+        color: white;
       }
       .bg-rajhi-blue { background-color: var(--rajhi-blue); }
       .text-rajhi-blue { color: var(--rajhi-blue); }
+      .bg-rajhi-navy { background-color: var(--rajhi-navy); }
       .bg-rajhi-gold { background-color: var(--rajhi-gold); }
       .text-rajhi-gold { color: var(--rajhi-gold); }
       .border-rajhi-gold { border-color: var(--rajhi-gold); }
@@ -38,8 +41,21 @@
       
       .glass-card {
         background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--rajhi-navy);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--rajhi-gold);
+        border-radius: 10px;
       }
     </style>
     <script type="importmap">
