@@ -70,34 +70,31 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
 
   const progress = ((currentIndex + 1) / questions.length) * 100;
   
-  // Bulleproof Timer SVG settings to avoid clipping
   const viewBoxSize = 100;
   const strokeWidth = 8;
   const center = viewBoxSize / 2;
-  const radius = (viewBoxSize - strokeWidth) / 2 - 4; // 4px extra safety margin
+  const radius = (viewBoxSize - strokeWidth) / 2 - 4;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (timeLeft / 30) * circumference;
 
   return (
     <div className="w-full flex flex-col space-y-5 page-transition px-2">
-      {/* Dynamic Progress Bar */}
+      {/* شريط التقدم العلوي */}
       <div className="px-1">
-        <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden shadow-inner border border-white/20">
           <div 
-            className="h-full bg-gradient-to-l from-rajhi-gold to-rajhi-gold/40 transition-all duration-1000 ease-out"
+            className="h-full bg-gradient-to-l from-rajhi-gold via-rajhi-gold to-yellow-200 transition-all duration-1000 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
-      <div className="w-full glass-card rounded-[2.5rem] shadow-2xl border border-white overflow-hidden pb-8">
-        {/* Centered Header Section */}
+      <div className="w-full bg-white rounded-[2.5rem] shadow-2xl border-4 border-white overflow-hidden pb-8">
         <div className="pt-8 flex flex-col items-center justify-center space-y-5">
-          <span className="bg-rajhi-blue/10 text-rajhi-blue px-5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border border-rajhi-blue/5">
+          <span className="bg-rajhi-blue/10 text-rajhi-blue px-6 py-2 rounded-full text-xs font-black border-2 border-rajhi-blue/20 shadow-sm">
             سؤال {currentIndex + 1} من {questions.length}
           </span>
 
-          {/* Centered Circular Timer with No Clipping */}
           <div className="relative flex items-center justify-center w-24 h-24">
             <svg 
               width="100%" 
@@ -105,65 +102,53 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
               viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`} 
               className="transform -rotate-90 drop-shadow-md overflow-visible"
             >
-              {/* Background Circle */}
+              <circle cx={center} cy={center} r={radius} stroke="#f3f4f6" strokeWidth={strokeWidth} fill="transparent" />
               <circle
-                cx={center}
-                cy={center}
-                r={radius}
-                stroke="currentColor"
-                strokeWidth={strokeWidth}
-                fill="transparent"
-                className="text-gray-100"
-              />
-              {/* Progress Circle */}
-              <circle
-                cx={center}
-                cy={center}
-                r={radius}
-                stroke="currentColor"
-                strokeWidth={strokeWidth}
-                fill="transparent"
-                strokeDasharray={circumference}
-                strokeLinecap="round"
-                style={{ 
-                  strokeDashoffset: offset, 
-                  transition: 'stroke-dashoffset 1s linear, stroke 0.3s ease' 
-                }}
-                className={timeLeft < 10 ? 'text-red-500' : 'text-rajhi-gold'}
+                cx={center} cy={center} r={radius} stroke={timeLeft < 10 ? '#ef4444' : '#c5a059'}
+                strokeWidth={strokeWidth} fill="transparent" strokeDasharray={circumference} strokeLinecap="round"
+                style={{ strokeDashoffset: offset, transition: 'stroke-dashoffset 1s linear' }}
               />
             </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center pt-1">
-              <span className={`text-2xl font-black leading-none ${timeLeft < 10 ? 'text-red-500 animate-pulse' : 'text-rajhi-blue'}`}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className={`text-2xl font-black ${timeLeft < 10 ? 'text-red-600 animate-pulse' : 'text-rajhi-blue'}`}>
                 {timeLeft}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Question Text Centered */}
-        <div className="px-6 py-6 text-center">
-          <h2 className="text-xl md:text-2xl font-extrabold text-rajhi-blue leading-snug">
-            {currentQuestion.text}
-          </h2>
+        {/* إطار السؤال المحدد - تم تعزيز الإطار هنا ليكون بارزاً أكثر */}
+        <div className="px-6 py-4">
+          <div className="bg-[#fcfaf6] rounded-[2rem] border-[4px] border-rajhi-gold/30 p-7 md:p-9 text-center shadow-md relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-16 h-16 bg-rajhi-gold/5 rounded-full -mr-8 -mt-8"></div>
+            <h2 className="text-xl md:text-2xl font-extrabold text-[#001a35] leading-relaxed relative z-10">
+              {currentQuestion.text}
+            </h2>
+          </div>
         </div>
 
-        {/* Options Grid Optimized for Mobile Touch */}
-        <div className="px-5 grid gap-3">
+        {/* قائمة الاختيارات بحدود واضحة جداً */}
+        <div className="px-6 grid gap-4">
           {currentQuestion.options.map((option, index) => {
             const isCorrect = index === currentQuestion.correctAnswer;
             const isSelected = index === selectedOption;
             
-            let cardClass = "w-full text-right p-5 rounded-2xl border-2 transition-all duration-300 flex items-center justify-between active:scale-[0.98] ";
+            let cardClass = "w-full text-right p-5 rounded-2xl border-[3px] transition-all duration-300 flex items-center justify-between active:scale-[0.98] shadow-sm ";
+            let textClass = "text-base font-bold leading-tight ";
             
             if (!isAnswered) {
-              cardClass += "border-gray-50 bg-gray-50/50 hover:bg-white hover:border-rajhi-gold/30";
+              cardClass += "border-gray-200 bg-white hover:border-rajhi-gold hover:bg-rajhi-gold/5 shadow-gray-200/50";
+              textClass += "text-gray-900"; 
             } else {
               if (isCorrect) {
-                cardClass += "border-green-500 bg-green-50 text-green-700 font-bold scale-[1.02] shadow-xl shadow-green-100/50";
+                cardClass += "border-green-500 bg-green-50 scale-[1.02] shadow-lg z-10";
+                textClass += "text-green-900";
               } else if (isSelected && !isCorrect) {
-                cardClass += "border-red-500 bg-red-50 text-red-700 shadow-xl shadow-red-100/50";
+                cardClass += "border-red-500 bg-red-50 shadow-lg z-10";
+                textClass += "text-red-900";
               } else {
-                cardClass += "border-transparent bg-gray-50 opacity-40 grayscale-[0.5]";
+                cardClass += "border-gray-100 bg-gray-50 opacity-40";
+                textClass += "text-gray-400";
               }
             }
 
@@ -175,27 +160,20 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
                 className={cardClass}
               >
                 <div className="flex items-center gap-4 flex-1">
-                  <div className={`w-8 h-8 flex-shrink-0 rounded-xl flex items-center justify-center text-xs font-black shadow-sm ${
+                  <div className={`w-10 h-10 flex-shrink-0 rounded-xl flex items-center justify-center text-sm font-black shadow-md ${
                     isAnswered 
-                    ? (isCorrect ? 'bg-green-500 text-white' : isSelected ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-400')
+                    ? (isCorrect ? 'bg-green-600 text-white' : isSelected ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-500')
                     : 'bg-rajhi-blue text-white'
                   }`}>
                     {index + 1}
                   </div>
-                  <span className="text-base font-bold leading-tight">{option}</span>
+                  <span className={textClass}>{option}</span>
                 </div>
 
-                {isAnswered && isCorrect && (
-                  <div className="bg-green-500 rounded-full p-1 ml-2 shadow-lg shadow-green-200">
+                {isAnswered && (isCorrect || (isSelected && !isCorrect)) && (
+                  <div className={`${isCorrect ? 'bg-green-600' : 'bg-red-600'} rounded-full p-1.5 ml-2 shadow-sm`}>
                     <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                )}
-                {isAnswered && isSelected && !isCorrect && (
-                  <div className="bg-red-500 rounded-full p-1 ml-2 shadow-lg shadow-red-200">
-                    <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d={isCorrect ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
                     </svg>
                   </div>
                 )}
@@ -205,20 +183,20 @@ const Quiz: React.FC<QuizProps> = ({ questions, onFinish }) => {
         </div>
       </div>
 
-      {/* Modern Status Info Bar */}
-      <div className="flex justify-between items-center px-6 py-4 glass-card rounded-3xl border border-white/50 shadow-xl shadow-rajhi-blue/5">
+      {/* شريط الإحصائيات السفلي */}
+      <div className="flex justify-between items-center px-6 py-4 bg-white rounded-3xl border-2 border-gray-100 shadow-xl">
         <div className="flex items-center gap-6">
           <div className="flex flex-col">
-            <span className="text-[10px] text-gray-400 font-black uppercase tracking-tighter">النقاط</span>
-            <span className="text-rajhi-blue font-black text-xl leading-none">{score}</span>
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-wider">النقاط الحالية</span>
+            <span className="text-rajhi-blue font-black text-2xl leading-none">{score}</span>
           </div>
-          <div className="w-[1px] h-8 bg-gray-100"></div>
+          <div className="w-[1px] h-10 bg-gray-100"></div>
           <div className="flex flex-col">
-            <span className="text-[10px] text-gray-400 font-black uppercase tracking-tighter">الوقت</span>
-            <span className="text-gray-700 font-black text-xl leading-none">{totalSecondsSpent}ث</span>
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-wider">الوقت الكلي</span>
+            <span className="text-gray-700 font-black text-2xl leading-none">{totalSecondsSpent}ث</span>
           </div>
         </div>
-        <div className="text-[11px] font-black text-rajhi-gold bg-rajhi-gold/10 px-4 py-2 rounded-xl border border-rajhi-gold/20">
+        <div className="text-xs font-black text-rajhi-gold bg-rajhi-gold/10 px-4 py-2 rounded-xl border-2 border-rajhi-gold/20">
           محور الأثر
         </div>
       </div>

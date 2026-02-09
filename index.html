@@ -6,30 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>مسابقة الراجحي الإنسانية 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              rajhi: {
+                blue: '#004a99',
+                navy: '#001a35',
+                gold: '#c5a059',
+              }
+            }
+          }
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --rajhi-blue: #004a99;
-        --rajhi-navy: #001a35;
-        --rajhi-gold: #c5a059;
-      }
       body {
         font-family: 'Tajawal', sans-serif;
-        background-color: var(--rajhi-navy);
+        background-color: #001a35;
         overscroll-behavior-y: contain;
         -webkit-tap-highlight-color: transparent;
         margin: 0;
         padding: 0;
         color: white;
       }
-      .bg-rajhi-blue { background-color: var(--rajhi-blue); }
-      .text-rajhi-blue { color: var(--rajhi-blue); }
-      .bg-rajhi-navy { background-color: var(--rajhi-navy); }
-      .bg-rajhi-gold { background-color: var(--rajhi-gold); }
-      .text-rajhi-gold { color: var(--rajhi-gold); }
-      .border-rajhi-gold { border-color: var(--rajhi-gold); }
       
       .page-transition {
         animation: slideUp 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
@@ -40,9 +44,7 @@
       }
       
       .glass-card {
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 1);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       }
 
@@ -51,25 +53,23 @@
         width: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: var(--rajhi-navy);
+        background: #001a35;
       }
       ::-webkit-scrollbar-thumb {
-        background: var(--rajhi-gold);
+        background: #c5a059;
         border-radius: 10px;
       }
     </style>
-    <script type="importmap">
+  <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@19.0.0",
-    "react-dom": "https://esm.sh/react-dom@19.0.0",
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/"
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4"
   }
 }
 </script>
-  </head>
+</head>
   <body class="antialiased">
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
