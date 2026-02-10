@@ -27,7 +27,7 @@ const Welcome: React.FC<WelcomeProps> = ({ onStart, onViewLeaderboard }) => {
         </div>
         
         <h1 className="text-3xl font-black text-white text-center mb-2">
-          مسابقة <span className="text-rajhi-gold">الأثر</span> والحوكمة
+          شغل مخك 🧠 🧩
         </h1>
         <p className="text-gray-300 text-center font-medium">اللقاء الاجتماعي الأول 2026</p>
       </div>
